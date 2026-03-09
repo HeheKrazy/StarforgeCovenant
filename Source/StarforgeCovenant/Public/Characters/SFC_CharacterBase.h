@@ -16,4 +16,12 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	
+	// Add socket to attach weapon on character and enemies
+	
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TObjectPtr<USkeletalMeshComponent> Weapon;
+	
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TObjectPtr<USkeletalMeshComponent> Shield;
 };
