@@ -14,4 +14,7 @@ class STARFORGECOVENANT_API ASFC_Character : public ASFC_CharacterBase
 {
 	GENERATED_BODY()
 	
+public:
+	ASFC_Character();
+	
 };
