@@ -2,8 +2,17 @@
 
 
 #include "Characters/MySFC_EnemyBase.h"
-
+#include "AbilitySystem/SFCAbilitySystemComponent.h"
+#include "AbilitySystem/SFCAttributeSet.h"
 #include "StarforgeCovenant/StarforgeCovenant.h"
+
+AMySFC_EnemyBase::AMySFC_EnemyBase()
+{
+	AbilitySystemComponent = CreateDefaultSubobject<USFCAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	
+	AttributeSet = CreateDefaultSubobject<USFCAttributeSet>("AttributeSet");
+}
 
 void AMySFC_EnemyBase::HighlightActor()
 {

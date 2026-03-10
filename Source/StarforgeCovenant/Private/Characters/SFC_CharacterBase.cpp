@@ -19,6 +19,16 @@ ASFC_CharacterBase::ASFC_CharacterBase()
 	
 }
 
+UAbilitySystemComponent* ASFC_CharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
+UAttributeSet* ASFC_CharacterBase::GetAttributeSet() const
+{
+	return AttributeSet;
+}
+
 void ASFC_CharacterBase::BeginPlay()
 {
 	Super::BeginPlay();

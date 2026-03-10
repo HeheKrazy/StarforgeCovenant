@@ -7,6 +7,8 @@
 #include "Interaction/EnemyInterface.h"
 #include "MySFC_EnemyBase.generated.h"
 
+
+
 /**
  * 
  */
@@ -16,6 +18,7 @@ class STARFORGECOVENANT_API AMySFC_EnemyBase : public ASFC_CharacterBase, public
 	GENERATED_BODY()
 	
 public:
+	AMySFC_EnemyBase();
 	virtual void HighlightActor();
 	virtual void UnHighlightActor();
 	
