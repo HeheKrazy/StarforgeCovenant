@@ -3,12 +3,18 @@
 
 #include "Characters/MySFC_EnemyBase.h"
 
+#include "StarforgeCovenant/StarforgeCovenant.h"
+
 void AMySFC_EnemyBase::HighlightActor()
 {
-	bActorHighlighted = true;
+	GetMesh()->SetRenderCustomDepth(true);
+	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
+	Weapon->SetRenderCustomDepth(true);
+	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 }
 
 void AMySFC_EnemyBase::UnHighlightActor()
 {
-	bActorHighlighted = false;
+	GetMesh()->SetRenderCustomDepth(false);
+	Weapon->SetRenderCustomDepth(false);
 }
