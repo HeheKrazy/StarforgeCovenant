@@ -17,4 +17,9 @@ class STARFORGECOVENANT_API ASFC_Character : public ASFC_CharacterBase
 public:
 	ASFC_Character();
 	
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+	
+private:
+	void InitAbilityActorInfo();
 };

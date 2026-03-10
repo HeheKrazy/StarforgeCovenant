@@ -19,8 +19,14 @@ class STARFORGECOVENANT_API AMySFC_EnemyBase : public ASFC_CharacterBase, public
 	
 public:
 	AMySFC_EnemyBase();
+	
+	/* EnemyInterface */
 	virtual void HighlightActor();
 	virtual void UnHighlightActor();
+	/* end EnemyInterface */
+	
+	protected:
+	virtual void BeginPlay() override;
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Debug")
 	bool bActorHighlighted = false;
