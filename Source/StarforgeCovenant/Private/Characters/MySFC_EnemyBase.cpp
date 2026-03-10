@@ -10,7 +10,8 @@ AMySFC_EnemyBase::AMySFC_EnemyBase()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<USFCAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
-	
+	//Gameplay effects are NOT replicated. Gameplay Cues and Gameplay Tags are replicated to all clients.
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 	AttributeSet = CreateDefaultSubobject<USFCAttributeSet>("AttributeSet");
 }
 

@@ -8,10 +8,13 @@
 
 ASFCPlayerState::ASFCPlayerState()
 {	
-	//Still have to set in player this will only be valid on PlayerState
+	// Still have to set in player this will only be valid on PlayerState
 	AbilitySystemComponent = CreateDefaultSubobject<USFCAbilitySystemComponent>("AbilitySystemComponent");
  	AbilitySystemComponent->SetIsReplicated(true);
- 	
+	// Gameplay Effects are replicated to the owning client only. Gameplay Cues and Gameplay Tags replicated
+	// To all clients
+ 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+	
  	AttributeSet = CreateDefaultSubobject<USFCAttributeSet>("AttributeSet");
 	
 	// Controls how often this actor replicates updates to clients (times per second).
