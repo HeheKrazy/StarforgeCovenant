@@ -19,4 +19,7 @@ public:
 	virtual void HighlightActor();
 	virtual void UnHighlightActor();
 	
+	UPROPERTY(BlueprintReadOnly, Category = "Debug")
+	bool bActorHighlighted = false;
+	
 };

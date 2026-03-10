@@ -5,8 +5,10 @@
 
 void AMySFC_EnemyBase::HighlightActor()
 {
+	bActorHighlighted = true;
 }
 
 void AMySFC_EnemyBase::UnHighlightActor()
 {
+	bActorHighlighted = false;
 }
