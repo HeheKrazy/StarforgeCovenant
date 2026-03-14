@@ -4,6 +4,9 @@
 #include "Player/SFCPlayerController.h"
 #include  "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "Characters/SFC_Character.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Interaction/EnemyInterface.h"
 #include "Runtime/ApplicationCore/Internal/GenericPlatform/CursorUtils.h"
 
@@ -30,12 +33,14 @@ void ASFCPlayerController::BeginPlay()
 	check(Subsystem);
 	Subsystem->AddMappingContext(SFCContext, 0);
 	
-	bShowMouseCursor = true;
+	//Changed for third person testing to false and added click events and mouse over events
+	bShowMouseCursor = false;
+	bEnableClickEvents = false;
+	bEnableMouseOverEvents = false;
+	
 	DefaultMouseCursor = EMouseCursor::Default;
 	
-	FInputModeGameAndUI InputModeData;
-	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-	InputModeData.SetHideCursorDuringCapture(false);
+	FInputModeGameOnly InputModeData;
 	SetInputMode(InputModeData);
 }
 
@@ -47,13 +52,18 @@ void ASFCPlayerController::SetupInputComponent()
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 	
 	//Bind Input Actions to Function Callbacks
+	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &ASFCPlayerController::OnMoveStarted);
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASFCPlayerController::Move);
+	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &ASFCPlayerController::OnMoveStopped);
+	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Canceled, this, &ASFCPlayerController::OnMoveStopped);
+	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASFCPlayerController::Look);
 }
 
 void ASFCPlayerController::Move(const FInputActionValue& InputActionValue)
 {
 	//Convert to vector 2d
 	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
+	
 	
 	//Find forward Direction
 	const FRotator Rotation = GetControlRotation();
@@ -66,6 +76,29 @@ void ASFCPlayerController::Move(const FInputActionValue& InputActionValue)
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
+	}
+}
+
+void ASFCPlayerController::Look(const FInputActionValue& InputActionValue)
+{
+	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
+	AddYawInput(InputAxisVector.Y);
+	AddPitchInput(InputAxisVector.X);
+}
+
+void ASFCPlayerController::OnMoveStarted(const FInputActionValue& InputActionValue)
+{
+	if (const ASFC_Character* ControlledCharacter = Cast<ASFC_Character>(GetPawn()))
+	{
+		ControlledCharacter->GetCharacterMovement()->bOrientRotationToMovement = false;
+	}
+}
+
+void ASFCPlayerController::OnMoveStopped(const FInputActionValue& InputActionValue)
+{
+	if (const ASFC_Character* ControlledCharacter = Cast<ASFC_Character>(GetPawn()))
+	{
+		ControlledCharacter->GetCharacterMovement()->bOrientRotationToMovement = true;
 	}
 }
 

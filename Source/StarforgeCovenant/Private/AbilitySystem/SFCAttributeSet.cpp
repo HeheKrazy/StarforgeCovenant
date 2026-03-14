@@ -7,6 +7,10 @@
 
 USFCAttributeSet::USFCAttributeSet()
 {
+	InitHealth(100.f);
+	InitMaxHealth(100.f);
+	InitEnergy(100.f);
+	InitMaxEnergy(100.f);
 	
 }
 
