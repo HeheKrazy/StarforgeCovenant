@@ -49,6 +49,14 @@ public:
 	FGameplayAttributeData MaxEnergy;
 	ATTRIBUTE_ACCESSORS(USFCAttributeSet, MaxEnergy);
 	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Shield, Category = "Vital Attributes")
+	FGameplayAttributeData Shield;
+	ATTRIBUTE_ACCESSORS(USFCAttributeSet, Shield);
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxShield, Category = "Vital Attributes")
+	FGameplayAttributeData MaxShield;
+	ATTRIBUTE_ACCESSORS(USFCAttributeSet, MaxShield);
+	
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData& OldHealth) const;
 	UFUNCTION()
@@ -57,6 +65,10 @@ public:
 	void OnRep_Energy(const FGameplayAttributeData& OldEnergy) const;
 	UFUNCTION()
 	void OnRep_MaxEnergy(const FGameplayAttributeData& OldMaxEnergy) const;
+	UFUNCTION()
+	void OnRep_Shield(const FGameplayAttributeData& OldShield) const;
+	UFUNCTION()
+	void OnRep_MaxShield(const FGameplayAttributeData& OldMaxShield) const;
 	/* end Attributes */
 	
 };

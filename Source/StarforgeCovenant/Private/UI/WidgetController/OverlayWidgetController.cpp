@@ -11,6 +11,8 @@ void UOverlayWidgetController::BroadcastInitialValues()
 	
 	OnHealthChanged.Broadcast(SFCAttributeSet->GetHealth());
 	OnMaxHealthChanged.Broadcast(SFCAttributeSet->GetMaxHealth());
+	OnShieldChanged.Broadcast(SFCAttributeSet->GetShield());
+	OnMaxShieldChanged.Broadcast(SFCAttributeSet->GetMaxShield());
 }
 
 void UOverlayWidgetController::BindCallbacksToDependencies()
@@ -24,6 +26,14 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 	//Max Health
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(SFCAttributeSet->GetMaxHealthAttribute()).AddUObject(
 		this, &UOverlayWidgetController::MaxHealthChanged);
+	
+	//Shield
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(SFCAttributeSet->GetShieldAttribute()).AddUObject(
+		this, &UOverlayWidgetController::ShieldChanged);
+	
+	//MaxShield
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(SFCAttributeSet->GetMaxShieldAttribute()).AddUObject(
+		this, &UOverlayWidgetController::MaxShieldChanged);
 }
 
 void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const
@@ -34,4 +44,14 @@ void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data)
 void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data) const
 {
 	OnMaxHealthChanged.Broadcast(Data.NewValue);
+}
+
+void UOverlayWidgetController::ShieldChanged(const FOnAttributeChangeData& Data) const
+{
+	OnShieldChanged.Broadcast(Data.NewValue);
+}
+
+void UOverlayWidgetController::MaxShieldChanged(const FOnAttributeChangeData& Data) const
+{
+	OnMaxShieldChanged.Broadcast(Data.NewValue);
 }

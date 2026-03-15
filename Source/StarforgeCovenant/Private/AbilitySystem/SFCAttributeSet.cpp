@@ -11,6 +11,8 @@ USFCAttributeSet::USFCAttributeSet()
 	InitMaxHealth(100.f);
 	InitEnergy(100.f);
 	InitMaxEnergy(100.f);
+	InitShield(50.f);
+	InitMaxShield(100.f);
 	
 }
 
@@ -22,6 +24,8 @@ void USFCAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 	DOREPLIFETIME_CONDITION_NOTIFY(USFCAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always)
 	DOREPLIFETIME_CONDITION_NOTIFY(USFCAttributeSet, Energy, COND_None, REPNOTIFY_Always)
 	DOREPLIFETIME_CONDITION_NOTIFY(USFCAttributeSet, MaxEnergy, COND_None, REPNOTIFY_Always)
+	DOREPLIFETIME_CONDITION_NOTIFY(USFCAttributeSet, Shield, COND_None, REPNOTIFY_Always)
+	DOREPLIFETIME_CONDITION_NOTIFY(USFCAttributeSet, MaxShield, COND_None, REPNOTIFY_Always)
 }
 
 void USFCAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
@@ -42,4 +46,14 @@ void USFCAttributeSet::OnRep_Energy(const FGameplayAttributeData& OldEnergy) con
 void USFCAttributeSet::OnRep_MaxEnergy(const FGameplayAttributeData& OldMaxEnergy)  const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(USFCAttributeSet, MaxEnergy, OldMaxEnergy);
+}
+
+void USFCAttributeSet::OnRep_Shield(const FGameplayAttributeData& OldShield) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(USFCAttributeSet, Shield, OldShield);
+}
+
+void USFCAttributeSet::OnRep_MaxShield(const FGameplayAttributeData& OldMaxShield) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(USFCAttributeSet, MaxShield, OldMaxShield);
 }
