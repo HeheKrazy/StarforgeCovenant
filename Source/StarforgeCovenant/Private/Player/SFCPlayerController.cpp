@@ -30,8 +30,10 @@ void ASFCPlayerController::BeginPlay()
 	
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	//Ensure Subsystem isn't null
-	check(Subsystem);
-	Subsystem->AddMappingContext(SFCContext, 0);
+	if(Subsystem)
+	{
+			Subsystem->AddMappingContext(SFCContext, 0);
+	}
 	
 	//Changed for third person testing to false and added click events and mouse over events
 	bShowMouseCursor = false;

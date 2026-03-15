@@ -5,7 +5,9 @@
 
 #include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Player/SFCPlayerController.h"
 #include "Player/SFCPlayerState.h"
+#include "UI/HUD/SFCHUD.h"
 
 ASFC_Character::ASFC_Character()
 {
@@ -37,9 +39,18 @@ void ASFC_Character::OnRep_PlayerState()
 void ASFC_Character::InitAbilityActorInfo()
 {	
 	// Get PlayerState first
-	ASFCPlayerState* SfcPlayerState = GetPlayerState<ASFCPlayerState>();
-	check(SfcPlayerState);
-	SfcPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(SfcPlayerState, this);
-	AbilitySystemComponent = SfcPlayerState->GetAbilitySystemComponent();
-	AttributeSet = SfcPlayerState->GetAttributeSet();
+	ASFCPlayerState* SFCPlayerState = GetPlayerState<ASFCPlayerState>();
+	check(SFCPlayerState);
+	SFCPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(SFCPlayerState, this);
+	AbilitySystemComponent = SFCPlayerState->GetAbilitySystemComponent();
+	AttributeSet = SFCPlayerState->GetAttributeSet();
+	
+	if (ASFCPlayerController* SFCPlayerController = Cast<ASFCPlayerController>(GetController()))
+	{
+		if (ASFCHUD* HUD = Cast<ASFCHUD>(SFCPlayerController->GetHUD()))
+		{
+			HUD->InitOverlay(SFCPlayerController, SFCPlayerState, AbilitySystemComponent, AttributeSet);
+		}
+	}
+	
 }
