@@ -10,3 +10,7 @@ void USFCWidgetController::SetWidgetControllerParams(const FWidgetControllerPara
 	AbilitySystemComponent = WCParams.AbilitySystemComponent;
 	AttributeSet = WCParams.AttributeSet;
 }
+
+void USFCWidgetController::BroadcastInitialValues()
+{
+}

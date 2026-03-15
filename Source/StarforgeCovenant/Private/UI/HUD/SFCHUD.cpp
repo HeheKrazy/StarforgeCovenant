@@ -29,5 +29,6 @@ void ASFCHUD::InitOverlay(APlayerController* PC, APlayerState* PState, UAbilityS
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 	
 	OverlayWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitialValues();
 	Widget->AddToViewport();
 }
