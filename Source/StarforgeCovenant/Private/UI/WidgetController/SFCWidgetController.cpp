@@ -14,3 +14,7 @@ void USFCWidgetController::SetWidgetControllerParams(const FWidgetControllerPara
 void USFCWidgetController::BroadcastInitialValues()
 {
 }
+
+void USFCWidgetController::BindCallbacksToDependencies()
+{
+}
